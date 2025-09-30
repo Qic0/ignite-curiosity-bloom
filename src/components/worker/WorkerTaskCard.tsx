@@ -84,12 +84,12 @@ const WorkerTaskCard = ({ task, currentTime, onClick, index = 0 }: WorkerTaskCar
         <CardContent className="p-6">
           <div className="flex items-start justify-between gap-6">
             {/* Левый блок - информация */}
-            <div className="flex-1 space-y-3">
+            <div className="flex-1 space-y-4">
               {/* Заголовок */}
               <div>
-                <h3 className="text-2xl font-bold mb-2">{task.title}</h3>
+                <h3 className="text-5xl font-bold mb-3">{task.title}</h3>
                 {task.description && (
-                  <p className="text-muted-foreground text-base line-clamp-2">
+                  <p className="text-muted-foreground text-2xl line-clamp-2">
                     {task.description}
                   </p>
                 )}
@@ -97,8 +97,8 @@ const WorkerTaskCard = ({ task, currentTime, onClick, index = 0 }: WorkerTaskCar
 
               {/* Заказ и клиент */}
               {task.zakazi && (
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <FileText className="w-4 h-4" />
+                <div className="flex items-center gap-3 text-xl text-muted-foreground">
+                  <FileText className="w-6 h-6" />
                   <span className="font-medium">{task.zakazi.title}</span>
                   <span className="mx-1">·</span>
                   <span className="italic">{task.zakazi.client_name}</span>
@@ -107,14 +107,14 @@ const WorkerTaskCard = ({ task, currentTime, onClick, index = 0 }: WorkerTaskCar
 
               {/* Приоритет */}
               <div>
-                <Badge className={getPriorityColor(task.priority)}>
+                <Badge className={`${getPriorityColor(task.priority)} text-lg px-4 py-2`}>
                   {getPriorityText(task.priority)}
                 </Badge>
               </div>
 
               {/* Статус */}
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <User className="w-4 h-4" />
+              <div className="flex items-center gap-3 text-xl text-muted-foreground">
+                <User className="w-6 h-6" />
                 <span>
                   {task.status === 'in_progress' && 'В работе'}
                   {task.status === 'pending' && 'Ожидает'}

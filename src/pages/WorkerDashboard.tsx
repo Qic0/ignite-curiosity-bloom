@@ -155,31 +155,7 @@ const WorkerDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Верхний заголовок с именем и временем */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold">
-                {user?.full_name || 'Личный кабинет'}
-              </h1>
-              <p className="text-muted-foreground">
-                {currentTasks.length} активных {currentTasks.length === 1 ? 'задача' : 'задач'}
-              </p>
-            </div>
-            <div className="text-right">
-              <div className="text-4xl font-mono font-bold">
-                {formatInTimeZone(toZonedTime(currentTime, MOSCOW_TZ), MOSCOW_TZ, 'HH:mm:ss')}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                {formatInTimeZone(toZonedTime(currentTime, MOSCOW_TZ), MOSCOW_TZ, 'dd MMMM yyyy', { locale: undefined })} (МСК)
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <div className="min-h-screen bg-background pt-14">
       {/* Основной контент - двухколоночная сетка */}
       <div className="container mx-auto px-6 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

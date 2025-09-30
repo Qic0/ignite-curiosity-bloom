@@ -2,11 +2,26 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import UserHeader from "./UserHeader";
+import { useState, useEffect } from "react";
+import { formatInTimeZone, toZonedTime } from 'date-fns-tz';
+
+const MOSCOW_TZ = 'Europe/Moscow';
 
 const Header = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const isWorkerDashboard = location.pathname === "/worker";
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Обновление времени каждую секунду для worker dashboard
+  useEffect(() => {
+    if (!isWorkerDashboard) return;
+    
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [isWorkerDashboard]);
 
   const navVariants = {
     hidden: { opacity: 0, y: -10 },
@@ -50,7 +65,23 @@ const Header = () => {
           </motion.h1>
         </Link>
         
-        {!isWorkerDashboard && (
+        {isWorkerDashboard ? (
+          <motion.div 
+            className="flex-1 flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="text-center">
+              <div className="text-4xl font-mono font-bold">
+                {formatInTimeZone(toZonedTime(currentTime, MOSCOW_TZ), MOSCOW_TZ, 'HH:mm:ss')}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                {formatInTimeZone(toZonedTime(currentTime, MOSCOW_TZ), MOSCOW_TZ, 'dd MMMM yyyy', { locale: undefined })} (МСК)
+              </div>
+            </div>
+          </motion.div>
+        ) : (
           <motion.nav 
             className="flex items-center space-x-6"
             variants={navVariants}
